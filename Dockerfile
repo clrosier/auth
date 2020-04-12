@@ -1,7 +1,7 @@
 # ---- Base python ----
 FROM python:3.6 AS base
 # Create app directory
-WORKDIR /bills-api
+WORKDIR /auth
 
 # ---- Dependencies ----
 FROM base AS dependencies
@@ -11,16 +11,16 @@ RUN pip install -r requirements.txt
 
 # ---- Copy Files/Build ----
 FROM dependencies AS build
-WORKDIR /bills-api
-COPY . /bills-api
+WORKDIR /auth
+COPY . /auth
 # Build / Compile if required
 
 # --- Release with Alpine ----
 FROM python:3.6-alpine3.7 AS release
 # Create app directory
-WORKDIR /bills-api
+WORKDIR /auth
 
-COPY --from=dependencies /bills-api/requirements.txt ./
+COPY --from=dependencies /auth/requirements.txt ./
 COPY --from=dependencies /root/.cache /root/.cache
 
 # Install app dependencies
@@ -29,5 +29,5 @@ RUN apk add --no-cache postgresql-libs && \
     pip install -r requirements.txt && \
     apk del gcc libffi-dev musl-dev
 
-COPY --from=build /bills-api/ ./
+COPY --from=build /auth/ ./
 CMD ["gunicorn", "--config", "gunicorn_conf.py", "manage:app"]
