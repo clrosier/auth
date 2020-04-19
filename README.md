@@ -9,7 +9,6 @@ This application is meant to run as a Docker container and eventually will be op
 For now it's possible to run as a standalone container like so:
 
 ### Option 1: Build from source
-test commit
 ```bash
 # Grab source code
 git clone https://github.com/clrosier/auth.git
