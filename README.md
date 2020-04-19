@@ -16,6 +16,7 @@ git clone https://github.com/clrosier/auth.git
 # Build the docker image
 docker build -t auth .
 
+
 # Run the image as a container
 docker run -d \
     --rm \
