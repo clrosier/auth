@@ -16,6 +16,9 @@ class User(db.Model):
     public_id = db.Column(db.String(100), unique=True)
     username = db.Column(db.String(50), unique=True)
     password_hash = db.Column(db.String(100))
+    verified = db.Column(db.Boolean, default=False)
+    program_id = db.Column(db.Integer)
+    user_link = db.Column(db.String(255))
 
     @property
     def password(self):
