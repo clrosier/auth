@@ -16,7 +16,7 @@ COPY . /auth
 # Build / Compile if required
 
 # --- Release with Alpine ----
-FROM arm64v8/python:3.6-alpine AS release
+FROM arm64v8/python:3.6-alpine3.7 AS release
 # Create app directory
 WORKDIR /auth
 
