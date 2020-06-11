@@ -27,7 +27,7 @@ COPY --from=dependencies /root/.cache /root/.cache
 RUN apk add --no-cache postgresql-libs && \
     apk add --no-cache --virtual .build-deps gcc libffi-dev musl-dev postgresql-dev && \
     pip install -r requirements.txt && \
-    apk del gcc libffi-dev musl-dev
+    apk del gcc musl-dev
 
 COPY --from=build /auth/ ./
 CMD ["gunicorn", "--config", "gunicorn_conf.py", "manage:app"]
