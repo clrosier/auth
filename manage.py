@@ -9,6 +9,7 @@ from app.main import create_app, db
 from app.main.model import user
 from app.main.model import blacklist
 
+
 app = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
 app.register_blueprint(blueprint)
 

@@ -70,6 +70,12 @@ spec:
           volumeMounts:
             - name: postgres-volume-mount
               mountPath: /var/lib/postgresql/data
+        - name: postgres-exporter
+          image: clrosier/postgres12-exporter-arm64
+          env:
+            - name: DATA_SOURCE_NAME
+              value: postgresql://postgres:apple321@localhost:5432/auth_dev
+
       volumes:
         - name: postgres-volume-mount
           persistentVolumeClaim:
