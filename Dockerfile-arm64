@@ -30,4 +30,4 @@ RUN apk add --no-cache postgresql-libs && \
     apk del gcc musl-dev
 
 COPY --from=build /auth/ ./
-CMD ["gunicorn", "--config", "gunicorn_conf.py", "manage:app"]
+ENTRYPOINT ["start.sh"]
