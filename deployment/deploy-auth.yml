@@ -49,8 +49,8 @@ metadata:
 spec:
   rules:
     - http:
-      paths:
-        - path: /
-          backend:
-            serviceName: auth
-            servicePort: 5000
+        paths:
+          - path: /
+            backend:
+              serviceName: auth
+              servicePort: 5000
