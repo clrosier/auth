@@ -20,7 +20,7 @@ spec:
           image: clrosier/auth:latest
           env:
           - name: AUTH_DB_URL
-            value: localhost
+            value: "10.43.71.124"
           - name: AUTH_DB_USER
             value: auth
           - name: AUTH_DB_PASS
