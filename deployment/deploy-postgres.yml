@@ -1,16 +1,28 @@
 ---
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  labels:
+    app: postgres
+data:
+  POSTGRES_DB: postgres
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: apple321
+---
+apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: postgres-pv
   labels:
     type: local
+    app: postgres
 spec:
   capacity:
     storage: 8Gi
   storageClassName: standard
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   hostPath:
     path: "/data/postgres-pv"
 ---
@@ -19,10 +31,11 @@ kind: PersistentVolumeClaim
 metadata:
   name: postgres-pvc
   labels:
+    app: postgres
     type: local
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 8Gi
@@ -48,11 +61,12 @@ spec:
       containers:
         - name: postgres
           image: arm64v8/postgres
-          env:
-            - name: POSTGRES_USER
-              value: postgres
-            - name: POSTGRES_PASSWORD
-              value: apple321
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: postgres-config
           volumeMounts:
             - name: postgres-volume-mount
               mountPath: /var/lib/postgresql/data
