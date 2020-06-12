@@ -71,6 +71,8 @@ metadata:
 spec:
   selector:
     service: postgres
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 5432
+      targetPort: 5432
+      protocol: TCP
