@@ -44,7 +44,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: auth_ingress
+  name: auth-ingress
   annotations:
 spec:
   rules:
