@@ -30,4 +30,7 @@ RUN apk add --no-cache postgresql-libs && \
     apk del gcc musl-dev
 
 COPY --from=build /auth/ ./
-ENTRYPOINT ["start.sh"]
+CMD ["python", "manage.py", "init", "db"]
+CMD ["python", "manage.py", "db", "migrate", "--message", "\"initial db migration\""]
+CMD ["python", "manage.py", "db", "upgrade"]
+ENTRYPOINT ["python", "manage.py", "run"]
