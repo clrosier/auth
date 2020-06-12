@@ -13,7 +13,7 @@ spec:
   template:
     metadata:
       labels:
-        app: flask
+        app: auth
     spec:
       containers:
         - name: auth
