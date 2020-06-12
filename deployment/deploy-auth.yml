@@ -27,5 +27,17 @@ spec:
               value: apple321
             - name: AUTH_DB_PORT
               value: 32541
-    restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth
+  labels:
+    service: auth
+spec:
+  selector:
+    app: auth
+  ports:
+    - port: 5000
+      targetPort: 5000
             
