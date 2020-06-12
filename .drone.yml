@@ -1,9 +1,0 @@
-kind: pipeline
-name: auth
-
-steps:
-  - name: test
-    image: python:3.6-alpine3.7
-    commands:
-      - "pip install -r requirements.txt"
-      - "python manage.py test"
