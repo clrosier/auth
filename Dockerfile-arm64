@@ -31,4 +31,6 @@ RUN apk add --no-cache postgresql-libs && \
 
 COPY --from=build /auth/ ./
 
-ENTRYPOINT ["start.sh"]
+RUN chmod +x start.sh
+
+ENTRYPOINT ["./start.sh"]
