@@ -57,4 +57,5 @@ def get_a_user(public_id):
 
 def save_changes(data):
     db.session.add(data)
+    db.session.flush()
     db.session.commit()
