@@ -11,6 +11,7 @@ pipeline {
             steps {
                 echo 'Building Dockerfile...'
                 script {
+                    sh 'whoami'
                     dockerImage = docker.build registry + ":1.0.$BUILD_NUMBER"
                 }
             }
