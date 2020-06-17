@@ -89,8 +89,9 @@ metadata:
   labels:
     service: postgres
 spec:
-  selector:
-    service: postgres
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 5432
+      nodePort: 30030
+  selector:
+    name: postgres
