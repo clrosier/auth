@@ -20,7 +20,7 @@ pipeline {
             steps {
                 echo 'Building Docker image for arm64...'
                 script {
-                    dockerImage_arm64 = docker.build(registry + ":arm64-1.0.$BUILD_NUMBER", "-f Dockerfile-arm64")
+                    dockerImage_arm64 = docker.build(registry + ":arm64-1.0.$BUILD_NUMBER", "-f Dockerfile-arm64 .")
                 }
             }
         }
