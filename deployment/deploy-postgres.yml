@@ -13,50 +13,46 @@ data:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: postgres-pv
+  name: postgres-pv-volume
   labels:
     type: local
     app: postgres
 spec:
   capacity:
     storage: 8Gi
-  storageClassName: standard
+  storageClassName: manual
   accessModes:
     - ReadWriteMany
   hostPath:
-    path: "/data/postgres-pv"
+    path: "/mnt/data"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: postgres-pvc
+  name: postgres-pv-claim
   labels:
     app: postgres
-    type: local
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
       storage: 8Gi
-  volumeName: postgres-pv
-  storageClassName: standard
+  storageClassName: manual
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres
-  labels:
-    name: database
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: postgres
+      app: postgres
   template:
     metadata:
       labels:
-        service: postgres
+        app: postgres
     spec:
       containers:
         - name: postgres
@@ -68,7 +64,7 @@ spec:
             - configMapRef:
                 name: postgres-config
           volumeMounts:
-            - name: postgres-volume-mount
+            - name: postgresdb
               mountPath: /var/lib/postgresql/data
         - name: postgres-exporter
           image: clrosier/postgres12-exporter-arm64
@@ -77,9 +73,9 @@ spec:
               value: postgresql://postgres:apple321@localhost:5432/auth_dev
 
       volumes:
-        - name: postgres-volume-mount
+        - name: postgresdb
           persistentVolumeClaim:
-            claimName: postgres-pvc
+            claimName: postgres-pv-claim
       restartPolicy: Always
 ---
 apiVersion: v1
