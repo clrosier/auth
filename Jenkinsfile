@@ -11,8 +11,8 @@ pipeline {
             steps {
                 echo 'Building Dockerfile...'
                 script {
-                    sh 'hostname -I'
                     dockerImage = docker.build registry + ":1.0.$BUILD_NUMBER"
+                    dockerImage_latest = docker.build registry + ":latest"
                 }
             }
         }
@@ -21,6 +21,7 @@ pipeline {
                 echo 'Building Docker image for arm64...'
                 script {
                     dockerImage_arm64 = docker.build(registry + ":arm64-1.0.$BUILD_NUMBER", "-f Dockerfile-arm64 .")
+                    dockerImage_arm64_latest = docker.build(registry + ":arm64-latest", "-f Dockerfile-arm64 .")
                 }
             }
         }
@@ -29,7 +30,9 @@ pipeline {
                 script {
                     docker.withRegistry('', registryCredential) {
                         dockerImage.push()
+                        dockerImage_latest.push()
                         dockerImage_arm64.push()
+                        dockerImage_arm64_latest.push()
                     }
                 }
             }

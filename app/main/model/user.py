@@ -17,7 +17,7 @@ class User(db.Model):
     username = db.Column(db.String(50), unique=True)
     password_hash = db.Column(db.String(100))
     verified = db.Column(db.Boolean, default=False)
-    num_posts = db.Column(db.Integer)
+    num_posts = db.Column(db.Integer, default=0)
 
     @property
     def password(self):
